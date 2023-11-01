@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <h:outputScript name="script.js" library="js"/>
+        <h:outputStylesheet name="default.css" library="css"/>
+        <h:outputStylesheet name="theme.css" library="css"/>
+        <title>Ordenes</title>
+    </h:head>
+
+    <h:body>
+        <div style="align-items: center">
+            <h:form>
+                <br></br>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Id cliente"/>
+                    <p:inputText id="txtCliente" value="#{bkn_orden.cliente}"/>
+                    <p:outputLabel value="total"/>
+                    <p:inputText id="txttotal" value="#{bkn_orden.total}"/>
+                    <p:commandButton id="btnRegreso" value="Pagina Principal" action="#{bkn_Inicio.VentanaPrincipal()}" icon="pi pi-home"/>
+                    <p:commandButton id="btnInicio" value="Agregar orden" action="#{bkn_orden.EnviarOrden()}" icon="pi pi-check"/> 
+                   
+                </p:panelGrid>
+                <p:dataTable id="tabla" var="product" value="#{bkn_orden.lista}" allowUnsorting="true" sortMode="single">
+                      <f:facet name="header">
+                        <div class="flex justify-content-between align-items-center">
+                            <div>
+                                <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
+                                <p:columnToggler datasource="tabla" trigger="toggler">
+                                    <p:ajax />
+                                </p:columnToggler>
+                            </div>
+                        </div>
+                    </f:facet>
+                     <p:column sortBy="#{product.idOrden}" headerText="Id orden" style="text-align: center">
+                         <h:outputText value="#{product.idOrden}" />
+                    </p:column>
+                    <p:column sortBy="#{product.clienteId}" headerText="Id Cliente" style="text-align: center">
+                        <h:outputText value="#{product.clienteId}" />
+                    </p:column>
+                    <p:column sortBy="#{product.fecha}" headerText="fecha" style="text-align: center">
+                        <h:outputText value="#{product.fecha}" />
+                    </p:column>
+                    <p:column sortBy="#{product.total}" headerText="total"  style="text-align: center">
+                        <h:outputText value="#{product.total}" />
+                    </p:column>
+             </p:dataTable>
+            </h:form>   
+        </div>
+    </h:body>
+</html>
